@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class SceneScript : MonoBehaviour
 {
-
+    private const float V = 0f;
     static private int rows = 2;
     static private int cols = 8;
     private float offsetX = 2.25f;
     private float offsetY = 4.5f;
 
+    private bool CanClick;
     [SerializeField] private Sprite[] imagens;
-    [SerializeField] private CartaPrincipal cartaOriginal;
-    private CartaPrincipal[] Cartas = new CartaPrincipal[cols * rows];
-
+    [SerializeField] private Carta carta;
+    private Carta primeira_carta;
+    private GameObject GOPrimeira;
     private void Start()
     {
-        Vector3 startPos = cartaOriginal.transform.position;
+        CanClick = true;
+
+        primeira_carta = null;
+        GOPrimeira = null;
+
+        Vector3 startPos = carta.transform.position;
 
         int[] image_number = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
         image_number = ShuffleArray(image_number);
@@ -25,10 +31,10 @@ public class SceneScript : MonoBehaviour
         {
             for (int j = 0; j < rows; j++)
             {
-                CartaPrincipal carta = (i == 0 && j == 0) ? cartaOriginal : Instantiate(cartaOriginal) as CartaPrincipal;
-                int id = i * rows + j;
-                carta.SetCardImage(id, imagens[image_number[id]]);
-                Cartas[id] = carta;
+                Carta nova_carta = (i == 0 && j == 0) ? carta : Instantiate(carta) as Carta;
+
+                int id = image_number[i * rows + j];
+                nova_carta.SetCardImage(id, imagens[id]);
 
                 float posX = (offsetX * i) + startPos.x;
                 float posY = (offsetY * j) + startPos.y;
@@ -36,6 +42,52 @@ public class SceneScript : MonoBehaviour
                 carta.transform.position = new Vector3(posX, posY, startPos.z);
             }
         }
+    }
+
+    private void CheckPair(Carta a, Carta b, GameObject secondCardGO)
+    {
+        if (a.id == b.id)
+        {
+            Debug.Log("Bingo");
+        }
+        else
+        {
+            Debug.Log("Wrong Pair");
+            StartCoroutine(WrongPair(GOPrimeira, secondCardGO));
+        }
+    }
+    public void MouseDownCard(Carta carta, GameObject Cardback)
+    {
+        if (!CanClick)
+            return;
+
+        TurnCard(Cardback, false);
+
+        if (primeira_carta == null)
+        {
+            primeira_carta = carta;
+            GOPrimeira = Cardback;
+        }
+        else
+        {
+            CheckPair(primeira_carta, carta, Cardback);
+
+            primeira_carta = null;
+            GOPrimeira = null;
+        }
+    }
+
+    private IEnumerator WrongPair(GameObject a, GameObject b)
+    {
+        CanClick = !CanClick;
+        yield return new WaitForSeconds(1f);
+        TurnCard(a, true);
+        TurnCard(b, true);
+        CanClick = !CanClick;
+    }
+    void TurnCard(GameObject card, bool front)
+    {
+        card.SetActive(front);
     }
 
     int[] ShuffleArray(int[] array)
