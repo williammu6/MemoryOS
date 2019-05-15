@@ -24,7 +24,7 @@ public class Carta : MonoBehaviour
         }
     }
 
-    public void SetCardImage(int id, Sprite image)
+    public void UpdateCardInfo(int id, Sprite image)
     {
         _id = id;
         GetComponent<SpriteRenderer>().sprite = image;

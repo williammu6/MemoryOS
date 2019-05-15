@@ -6,8 +6,8 @@ public class SceneScript : MonoBehaviour
 {
     private const float V = 0f;
 
-    private float offsetX = 2.25f;
-    private float offsetY = 4.5f;
+    private float offsetX = 2.5f;
+    private float offsetY = 5f;
 
     private bool CanClick;
 
@@ -41,7 +41,7 @@ public class SceneScript : MonoBehaviour
                 Carta nova_carta = (i == 0 && j == 0) ? carta : Instantiate(carta) as Carta;
 
                 int id = image_number[i * rows + j];
-                nova_carta.SetCardImage(id, imagens[id]);
+                nova_carta.UpdateCardInfo(id, imagens[id]);
 
                 float posX = (offsetX * i) + startPos.x;
                 float posY = (offsetY * j) + startPos.y;
