@@ -46,13 +46,8 @@ public class SceneScript : MonoBehaviour
 
     private void CheckPair(Carta a, Carta b, GameObject secondCardGO)
     {
-        if (a.id == b.id)
+        if (a.id != b.id) 
         {
-            Debug.Log("Bingo");
-        }
-        else
-        {
-            Debug.Log("Wrong Pair");
             StartCoroutine(WrongPair(GOPrimeira, secondCardGO));
         }
     }
