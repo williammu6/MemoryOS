@@ -44,3 +44,6 @@ TagManager:
   - name: cardback
     uniqueID: 1987590405
     locked: 0
+  - name: text
+    uniqueID: 191287097
+    locked: 0

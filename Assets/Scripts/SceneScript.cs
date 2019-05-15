@@ -5,18 +5,25 @@ using UnityEngine;
 public class SceneScript : MonoBehaviour
 {
     private const float V = 0f;
-    static private int rows = 2;
-    static private int cols = 8;
+
     private float offsetX = 2.25f;
     private float offsetY = 4.5f;
 
     private bool CanClick;
+
     [SerializeField] private Sprite[] imagens;
     [SerializeField] private Carta carta;
+    [SerializeField] private GameScript Game;
+
     private Carta primeira_carta;
     private GameObject GOPrimeira;
+
     private void Start()
     {
+
+        int cols = Game.cols;
+        int rows = Game.rows;
+
         CanClick = true;
 
         primeira_carta = null;
@@ -49,6 +56,9 @@ public class SceneScript : MonoBehaviour
         if (a.id != b.id) 
         {
             StartCoroutine(WrongPair(GOPrimeira, secondCardGO));
+        } else {
+            Game.AddScore();
+            Game.CheckGame();
         }
     }
     public void MouseDownCard(Carta carta, GameObject Cardback)
@@ -80,6 +90,8 @@ public class SceneScript : MonoBehaviour
         TurnCard(b, true);
         CanClick = !CanClick;
     }
+
+
     void TurnCard(GameObject card, bool front)
     {
         card.SetActive(front);
