@@ -16,25 +16,29 @@ public class GameScript : MonoBehaviour
     void Start()
     {
         score = 0;
-        PlayAgainBtn.SetActive(false);   
     }
 
-    public void AddScore() {
+    public void AddScore()
+    {
         score++;
         ScoreText.text = "Score: " + score;
     }
 
-    public void CheckGame() {
-        if (score == (int) (rows * cols / 2)) {
+    public void CheckGame()
+    {
+        if (score == (int)(rows * cols / 2))
+        {
             PlayerWon();
         }
     }
 
-    public void PlayAgain() {
+    public void PlayAgain()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void PlayerWon() {
+    public void PlayerWon()
+    {
         PlayAgainBtn.SetActive(true);
     }
 }

@@ -6,7 +6,7 @@ public class SceneScript : MonoBehaviour
 {
     private const float V = 0f;
 
-    private float offsetX = 2.5f;
+    private float offsetX = 2.25f;
     private float offsetY = 5f;
 
     private bool CanClick;
@@ -53,10 +53,12 @@ public class SceneScript : MonoBehaviour
 
     private void CheckPair(Carta a, Carta b, GameObject secondCardGO)
     {
-        if (a.id != b.id) 
+        if (a.id != b.id)
         {
             StartCoroutine(WrongPair(GOPrimeira, secondCardGO));
-        } else {
+        }
+        else
+        {
             Game.AddScore();
             Game.CheckGame();
         }
