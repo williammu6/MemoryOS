@@ -16,7 +16,6 @@ public class SceneScript : MonoBehaviour
     [SerializeField] private GameScript Game;
 
     private Carta primeira_carta;
-    private GameObject GOPrimeira;
 
     private void Start()
     {
@@ -27,7 +26,6 @@ public class SceneScript : MonoBehaviour
         CanClick = true;
 
         primeira_carta = null;
-        GOPrimeira = null;
 
         Vector3 startPos = carta.transform.position;
 
@@ -51,11 +49,11 @@ public class SceneScript : MonoBehaviour
         }
     }
 
-    private void CheckPair(Carta a, Carta b, GameObject secondCardGO)
+    private void CheckPair(Carta a, Carta b)
     {
         if (a.id != b.id)
         {
-            StartCoroutine(WrongPair(GOPrimeira, secondCardGO));
+            ShakePair(a, b);
         }
         else
         {
@@ -63,40 +61,33 @@ public class SceneScript : MonoBehaviour
             Game.CheckGame();
         }
     }
-    public void MouseDownCard(Carta carta, GameObject Cardback)
+
+    void ShakePair(Carta a, Carta b)
+    {
+        CanClick = !CanClick;
+        a.Shake();
+        b.Shake();
+        CanClick = !CanClick;
+    }
+
+    public void MouseDownCard(Carta carta)
     {
         if (!CanClick)
+        {
             return;
+        }
 
-        TurnCard(Cardback, false);
+        carta.Turn();
 
         if (primeira_carta == null)
         {
             primeira_carta = carta;
-            GOPrimeira = Cardback;
         }
         else
         {
-            CheckPair(primeira_carta, carta, Cardback);
-
+            CheckPair(primeira_carta, carta);
             primeira_carta = null;
-            GOPrimeira = null;
         }
-    }
-
-    private IEnumerator WrongPair(GameObject a, GameObject b)
-    {
-        CanClick = !CanClick;
-        yield return new WaitForSeconds(1f);
-        TurnCard(a, true);
-        TurnCard(b, true);
-        CanClick = !CanClick;
-    }
-
-
-    void TurnCard(GameObject card, bool front)
-    {
-        card.SetActive(front);
     }
 
     int[] ShuffleArray(int[] array)
