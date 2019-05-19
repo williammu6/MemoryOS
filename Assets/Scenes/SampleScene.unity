@@ -936,12 +936,15 @@ MonoBehaviour:
   rows: 2
   cols: 8
   AcertouClips:
-  - {fileID: 8300000, guid: 590fd36d4c8354b758cfebd1dfb19508, type: 3}
+  - {fileID: 8300000, guid: dd1d3c967d2854b7a95227f0e5f82fb3, type: 3}
   - {fileID: 8300000, guid: 4d4117c1bc14044d98f37faea4eea031, type: 3}
+  - {fileID: 8300000, guid: 996d6c50bf6ae4c69a54ed5981ad1646, type: 3}
   ErrouClips:
   - {fileID: 8300000, guid: c88c5c6d9ebfc4e08b94cb05c715e458, type: 3}
+  - {fileID: 8300000, guid: 1b6bdf71e2e1a4f80b18886a73901380, type: 3}
   GanhouClips:
   - {fileID: 8300000, guid: 0d594fa1cee4345d3a9d328795ff236f, type: 3}
+  - {fileID: 8300000, guid: 07b9b45c7845c4e8cadfbcfb82bdd869, type: 3}
 --- !u!4 &1556931039
 Transform:
   m_ObjectHideFlags: 0
