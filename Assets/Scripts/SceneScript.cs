@@ -64,6 +64,7 @@ public class SceneScript : MonoBehaviour
 
     void ShakePair(Carta a, Carta b)
     {
+        Game.ErrouSound();
         CanClick = !CanClick;
         a.Shake();
         b.Shake();

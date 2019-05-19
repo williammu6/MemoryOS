@@ -13,6 +13,10 @@ public class GameScript : MonoBehaviour
     public int rows = 2;
     public int cols = 8;
 
+    [SerializeField] private AudioClip[] AcertouClips;
+    [SerializeField] private AudioClip[] ErrouClips;
+    [SerializeField] private AudioClip[] GanhouClips;
+    private AudioSource audioSource;
     void Start()
     {
         score = 0;
@@ -20,15 +24,30 @@ public class GameScript : MonoBehaviour
 
     public void AddScore()
     {
+        PlaySound(AcertouClips);
         score++;
         ScoreText.text = "Score: " + score;
+    }
+
+    void PlaySound(AudioClip[] clips)
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = clips[Random.Range(0, clips.Length)];
+        audioSource.volume = 0.5f;
+        audioSource.Play();
+    }
+
+    public void ErrouSound()
+    {
+        PlaySound(ErrouClips);
     }
 
     public void CheckGame()
     {
         if (score == (int)(rows * cols / 2))
         {
-            PlayerWon();
+
+            StartCoroutine(PlayerWon());
         }
     }
 
@@ -37,8 +56,10 @@ public class GameScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void PlayerWon()
+    private IEnumerator PlayerWon()
     {
+        PlaySound(GanhouClips);
+        yield return new WaitForSeconds(2f);
         PlayAgainBtn.SetActive(true);
     }
 }
