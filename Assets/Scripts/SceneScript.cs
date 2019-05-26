@@ -19,7 +19,6 @@ public class SceneScript : MonoBehaviour
 
     private void Start()
     {
-
         int cols = Game.cols;
         int rows = Game.rows;
 
