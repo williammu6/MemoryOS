@@ -25,10 +25,10 @@ public class GameScript : MonoBehaviour
         Countdown = GameObject.FindGameObjectWithTag("Countdown").GetComponent<TextMeshProUGUI>();
 
         //TODO: se for nível médio deve fazer em 60 segundos
-        if (true)
+        if (PlayerPrefs.GetString("Dificul") == "Médio")
         {
             StartCoroutine(StartCountdown(60));
-        } else if (true) //TODO: se for nível difícil deve fazer em 30 segundos
+        } else if (PlayerPrefs.GetString("Dificul") == "Difícil") //TODO: se for nível difícil deve fazer em 30 segundos
         {
             StartCoroutine(StartCountdown(30));
         }
