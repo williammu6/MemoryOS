@@ -11,7 +11,7 @@ public class NewGameScript : MonoBehaviour
 
     public void PlayAgain()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Dificuldade");
     }
 
 }

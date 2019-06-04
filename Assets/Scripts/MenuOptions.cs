@@ -18,7 +18,11 @@ public class MenuOptions : MonoBehaviour
 
     public void Sair()
     {
-        Application.Quit();
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 
     public void DificuldadeFacil()
