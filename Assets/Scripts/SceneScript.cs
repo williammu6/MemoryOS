@@ -52,7 +52,7 @@ public class SceneScript : MonoBehaviour
     {
         if (a.id != b.id)
         {
-            ShakePair(a, b);
+            StartCoroutine(ShakePair(a, b));
         }
         else
         {
@@ -61,17 +61,20 @@ public class SceneScript : MonoBehaviour
         }
     }
 
-    void ShakePair(Carta a, Carta b)
+    IEnumerator ShakePair(Carta a, Carta b)
     {
+
+        CanClick = false;
         Game.ErrouSound();
-        CanClick = !CanClick;
         a.Shake();
         b.Shake();
-        CanClick = !CanClick;
+        yield return new WaitForSeconds(0.5f);
+        CanClick = true;
     }
 
     public void MouseDownCard(Carta carta)
     {
+        Debug.Log(CanClick);
         if (!CanClick)
         {
             return;

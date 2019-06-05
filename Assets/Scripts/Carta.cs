@@ -63,7 +63,7 @@ public class Carta : MonoBehaviour
         {
             shaking = true;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         Turn();
         shaking = false;
         transform.position = original_position;

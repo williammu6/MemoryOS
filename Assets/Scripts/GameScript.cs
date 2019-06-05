@@ -11,6 +11,8 @@ public class GameScript : MonoBehaviour
     public int rows = 2;
     public int cols = 8;
 
+    public bool won;
+
     public TextMeshProUGUI Countdown;
     public float currCountdownValue;
 
@@ -20,6 +22,8 @@ public class GameScript : MonoBehaviour
     private AudioSource audioSource;
     void Start()
     {
+        won = false;
+
         score = 0;
 
         Countdown = GameObject.FindGameObjectWithTag("Countdown").GetComponent<TextMeshProUGUI>();
@@ -64,6 +68,7 @@ public class GameScript : MonoBehaviour
 
     private IEnumerator PlayerWon()
     {
+        won = true;
         PlaySound(GanhouClips);
         yield return new WaitForSeconds(4f);
         SceneManager.LoadScene("WonGameScene");
@@ -72,7 +77,7 @@ public class GameScript : MonoBehaviour
     public IEnumerator StartCountdown(float countdownValue)
     {
         currCountdownValue = countdownValue;
-        while (currCountdownValue >= 0)
+        while (currCountdownValue >= 0 && !won)
         {
             Countdown.GetComponent<TextMeshProUGUI>().text = "Countdown: " + currCountdownValue;
             yield return new WaitForSeconds(1.0f);
